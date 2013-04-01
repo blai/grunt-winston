@@ -1,17 +1,16 @@
 {
-  "name": "grunt-express",
-  "description": "Start (and supervise) an Express.js web server using grunt.js, works well with socket.io",
-  "version": "0.3.2",
-  "homepage": "https://github.com/gruntjs/grunt-contrib-connect",
+  "name": "grunt-winston",
+  "description": "Setup a Winston logger for grunt runtime.",
+  "version": "0.1.0",
   "author": {
     "name": "Brian Lai"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/blai/grunt-express.git"
+    "url": "git://github.com/blai/grunt-winston.git"
   },
   "bugs": {
-    "url": "https://github.com/blai/grunt-express/issues"
+    "url": "https://github.com/blai/grunt-winston/issues"
   },
   "licenses": [
     {
