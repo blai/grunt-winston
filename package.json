@@ -1,0 +1,45 @@
+{
+  "name": "grunt-express",
+  "description": "Start (and supervise) an Express.js web server using grunt.js, works well with socket.io",
+  "version": "0.3.2",
+  "homepage": "https://github.com/gruntjs/grunt-contrib-connect",
+  "author": {
+    "name": "Brian Lai"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blai/grunt-express.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blai/grunt-express/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "winston": "~0.6.2",
+    "lodash": "~1.1.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.2.0",
+    "grunt": "~0.4.0",
+    "grunt-contrib-nodeunit": "~0.1.2"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.0"
+  },
+  "keywords": [
+    "gruntplugin",
+    "logger",
+    "winston"
+  ]
+}
