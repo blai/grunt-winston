@@ -42,8 +42,8 @@ grunt.registerTask('default', ['winston']);
 ## Options
 
 ### config (optional)
-Type: `Object`
-Default: `null`
+##### Type: `Object`
+##### Default: `null`
 Your `config` hash will be passed in directly when calling the `winston.Logger` constructor. Typical options would be `transports` (https://github.com/flatiron/winston/blob/master/docs/transports.md) and `levels` (https://github.com/flatiron/winston#logging-levels). Read the docs on https://github.com/flatiron/winston for more details
 
 #### example
@@ -74,8 +74,8 @@ grunt.initConfig({
 ```
 
 ### Hooks (optional)
-Type: `Function|Array`
-Default: `null`
+##### Type: `Function|Array`
+##### Default: `null`
 Winston provide a set of APIs for finer-grain controll over the logger instance. grunt-winston provide `hooks` for your convenience to add such kind of controlls. You may provide a function (or an array of functions), with each takes a single parameter `logger` that represents the instance of logger for the current grunt task.
 
 #### example
@@ -129,7 +129,7 @@ grunt.initConfig({
 ```
 
 ### defineLogger (optional)
-Type: `function`
+##### Type: `function`
 It would not be useful if you define a logger and not use it anywhere, so the idea of this `defineLogger` is for you to set the logger to the context of your own. Usually in a grunt runtime, it maybe useful to set the logger on the `global` object so from any module you may just do `logger.log()` as if the logger is defined locally. (For this matter, `defineLogger` is by default setting `logger` to `global` object, so you don't have to set this yourself).
 
 #### example
