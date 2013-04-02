@@ -22,7 +22,7 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt nodeunit"
   },
   "dependencies": {
     "winston": "~0.6.2",
