@@ -166,6 +166,10 @@ grunt.initConfig({
 It is totally optionaly to call your logger `logger`, feel free to provide your own `defineLogger` function to name it your way.
 
 
+## Contributors
+ * [Brian Lai](https://github.com/blai)
+ * [Peter Choi](https://github.com/pchoi)
+
 ## License
 Copyright (c) 2013 Brian Lai
 Licensed under the MIT license.
