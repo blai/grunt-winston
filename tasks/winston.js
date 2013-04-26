@@ -1,32 +1,46 @@
 'use strict';
 
 var _ = require('lodash');
+var util = require('util');
 var winston = require('winston');
 
 module.exports = function(grunt) {
-  grunt.registerMultiTask('winston', 'Setup a winston logger.', function() {
-    var options = this.options();
+    grunt.registerMultiTask('winston', 'Setup a winston logger.', function() {
+        var options = this.options();
 
-    var config = options.config || {};
-    if (!config.transports || !config.transports.length) {
-			config.transports = [new winston.transports.Console()];
-    }
+        var config = options.config || {};
+        var transports = config.transports;
 
-    var hooks = options.hooks ? _.flatten([options.hooks], true) : [];
-    var defineLogger = options.defineLogger || function (logger) {
-			global.logger = logger;
-    };
+        config = _.omit(config, 'transports');
 
-    if ('function' !==  typeof defineLogger) {
-			grunt.fatal('defineLogger must be a function');
-    }
+        var logger = new winston.Logger(config);
+        if (!transports || !transports.length) {
+            transports = [new winston.transports.Console()];
+        } else {
+            _.each(transports, function(transport) {
+                var name = transport.clazz.split('.').pop();
+                // Check if this is a default transport
+                if (_.contains(_.keys(winston.transports), name)) {
+                    logger.add(winston.transports[name], transport.options);
+                } else {
+                    grunt.log.error('Cannot instantiate non-default transport: ' + transport.clazz);
+                }
+            });
+        }
 
-    var logger = new winston.Logger(config);
+        var hooks = options.hooks ? _.flatten([options.hooks], true) : [];
+        var defineLogger = options.defineLogger || function (logger) {
+            global.logger = logger;
+        };
 
-    defineLogger(logger);
+        if ('function' !==  typeof defineLogger) {
+            grunt.fatal('defineLogger must be a function');
+        }
 
-    hooks.forEach(function(hook) {
-      hook.call(logger, logger);
+        defineLogger(logger);
+
+        hooks.forEach(function(hook) {
+            hook.call(logger, logger);
+        });
     });
-  });
 };
