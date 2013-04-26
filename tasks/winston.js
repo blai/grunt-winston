@@ -14,16 +14,14 @@ module.exports = function(grunt) {
         config = _.omit(config, 'transports');
 
         var logger = new winston.Logger(config);
-        if (!transports || !transports.length) {
+        if (!transports) {
             transports = [new winston.transports.Console()];
         } else {
-            _.each(transports, function(transport) {
-                var name = transport.clazz.split('.').pop();
-                // Check if this is a default transport
-                if (_.contains(_.keys(winston.transports), name)) {
-                    logger.add(winston.transports[name], transport.options);
+            _.each(transports, function(options, type) {
+                if ('undefined' === winston.transports[type]) {
+                    grunt.log.error('Cannot instantiate non-default transport: ' + type);  
                 } else {
-                    grunt.log.error('Cannot instantiate non-default transport: ' + transport.clazz);
+                    logger.add(winston.transports[type], options);
                 }
             });
         }
