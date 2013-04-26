@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 
         var logger = new winston.Logger(config);
         if (!transports) {
-            transports = [new winston.transports.Console()];
+            logger.add(winston.transports.Console);
         } else {
             _.each(transports, function(options, type) {
                 if ('undefined' === winston.transports[type]) {
