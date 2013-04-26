@@ -53,25 +53,26 @@ grunt.initConfig({
     logger: {
       options: {
         config: {
-		      transports: [
-		      	new winston.transports.File({ filename: 'path/to/all-logs.log' }),
-		      	new winston.transports.Console({
-				      handleExceptions: true,
-				      json: true
-				    })
-				  ],
-				  levels: {
-			      foo: 0,
-			      bar: 1,
-			      baz: 2,
-			      foobar: 3
-			    }
-			  }
-	    }
+          transports: {
+            'File': { filename: 'path/to/all-logs.log' },
+            'Console': {
+              handleExceptions: true,
+              json: true
+            }
+          },
+          levels: {
+            foo: 0,
+            bar: 1,
+            baz: 2,
+            foobar: 3
+          }
+        }
+      }
     }
   }
 });
 ```
+Noted: for transport, this plugin takes a hash of configurations for different transport setups, with the keys being the name of one of the default transports provided by winston. (e.g. if you want to use winston.transports.File, the key would be 'File'). If you want to use custom transports (e.g. 'winston-loggly'), you would have to do it in the 'hooks' as described below.
 
 ### Hooks (optional)
 ##### Type: `Function|Array`
@@ -82,20 +83,20 @@ Winston provide a set of APIs for finer-grain controll over the logger instance.
 ```javascript
 grunt.initConfig({
   winston: {
-  	myLogger: {
-  	  options: {
-    		hooks: function (logger) {
-    		  //
-				  // Handle errors
-				  //
-				  logger.on('error', function (err) { /* Do Something */ });
+    myLogger: {
+      options: {
+        hooks: function (logger) {
+          //
+          // Handle errors
+          //
+          logger.on('error', function (err) { /* Do Something */ });
 
-				  //
-				  // Or just suppress them.
-				  //
-				  logger.emitErrs = false;
-	    	}
-	    }
+          //
+          // Or just suppress them.
+          //
+          logger.emitErrs = false;
+        }
+      }
     }
   }
 });
@@ -105,24 +106,24 @@ or
 ```javascript
 grunt.initConfig({
   winston: {
-  	myLogger: {
-  		options: {
-    		hooks: [
-    			function (logger) {
-	    		  logger.on('logging', function (transport, level, msg, meta) {
-					    // [msg] and [meta] have now been logged at [level] to [transport]
-					  });
-		    	},
-		    	function (logger) {
-						logger.addColors({
-				      foo: 'blue',
-				      bar: 'green',
-				      baz: 'yellow',
-				      foobar: 'red'
-				    });
-			    }
-		    ]
-    	}
+    myLogger: {
+      options: {
+        hooks: [
+          function (logger) {
+            logger.on('logging', function (transport, level, msg, meta) {
+              // [msg] and [meta] have now been logged at [level] to [transport]
+            });
+          },
+          function (logger) {
+            logger.addColors({
+              foo: 'blue',
+              bar: 'green',
+              baz: 'yellow',
+              foobar: 'red'
+            });
+          }
+        ]
+      }
     }
   }
 });
@@ -136,13 +137,13 @@ It would not be useful if you define a logger and not use it anywhere, so the id
 ```javascript
 grunt.initConfig({
   winston: {
-  	myLogger: {
-  		options: {
-  			// default setup of grunt-winston
-    		defineLogger: function (logger) {
-	    		global.logger = logger;
-	    	}
-    	}
+    myLogger: {
+      options: {
+        // default setup of grunt-winston
+        defineLogger: function (logger) {
+          global.logger = logger;
+        }
+      }
     }
   }
 });
@@ -151,13 +152,13 @@ A less common use case would be place the logger directly on `Object.prototype` 
 ```javascript
 grunt.initConfig({
   winston: {
-  	myLogger: {
-  		options: {
-  			// default setup of grunt-winston
-    		defineLogger: function (logger) {
-	    		Object.prototype.logger = logger;
-	    	}
-    	}
+    myLogger: {
+      options: {
+        // default setup of grunt-winston
+        defineLogger: function (logger) {
+          Object.prototype.logger = logger;
+        }
+      }
     }
   }
 });
@@ -170,5 +171,6 @@ Copyright (c) 2013 Brian Lai
 Licensed under the MIT license.
 
 ## Release History
- * 2013-03-28   v0.1.0   first draft.
+ * 2013-04-26 `v0.2.0` fixed transport config bug
+ * 2013-03-28 `v0.1.0` first draft.
 
